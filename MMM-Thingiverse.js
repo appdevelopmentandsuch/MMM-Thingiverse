@@ -95,11 +95,11 @@ Module.register('MMM-Thingiverse', {
         self.iterations = self.iterations + 1;
         self.currentThingId = self.currentThingId + 1;
 
-        var thingCreator = document.createElement('div');
+        var thingCreator = document.createElement('p');
         thingCreator.classList.add('MMM-Thingiverse-creator');
         thingCreator.innerHTML = thing.creator.name;
 
-        var thingName = document.createElement('div');
+        var thingName = document.createElement('p');
         thingName.classList.add('MMM-Thingiverse-name');
         thingName.innerHTML = thing.name;
 
