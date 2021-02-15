@@ -30,6 +30,8 @@ Module.register('MMM-Thingiverse', {
     this.loaded = false;
     this.things = { hits: [] };
     this.qrSize = 100;
+    this.maxPages = 10;
+    this.maxThingCount = 101;
 
     this.getData();
     setInterval(function () {
@@ -40,7 +42,11 @@ Module.register('MMM-Thingiverse', {
   getData: function () {
     var self = this;
 
-    var urlApi = `https://api.thingiverse.com/search/?sort=popular&access_token=${this.config.appToken}&per_page=${this.config.thingCount}&page=${self.currentPage}`;
+    var urlApi = `https://api.thingiverse.com/search/?sort=popular&access_token=${
+      this.config.appToken
+    }&per_page=${this.config.thingCount}&page=${
+      self.currentPage % self.maxPages
+    }`;
     var retry = true;
 
     var dataRequest = new XMLHttpRequest();
