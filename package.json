@@ -7,8 +7,5 @@
   "license": "MIT",
   "devDependencies": {
     "stylelint-config-standard": "latest"
-  },
-  "dependencies": {
-    "qrcodejs": "^1.0.0"
   }
 }

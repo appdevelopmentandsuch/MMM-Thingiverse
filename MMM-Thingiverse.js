@@ -113,7 +113,11 @@ Module.register('MMM-Thingiverse', {
         var qrCodeElement = document.createElement('div');
         qrCodeElement.classList.add('MMM-Thingiverse-qrcode');
 
-        var qrCode = new QRCode(qrCodeElement, thing.public_url);
+        var _ = new QRCode(qrCodeElement, {
+          text: thing.public_url,
+          width: 20,
+          height: 20,
+        });
 
         row.appendChild(thingThumbnail);
         row.appendChild(qrCodeElement);
@@ -128,7 +132,7 @@ Module.register('MMM-Thingiverse', {
   },
 
   getScripts: function () {
-    return ['qrcode.min.js'];
+    return ['qrcode.min.js']; // qrcode.min.js is a library used for QR Code generation. Credit goes to https://github.com/davidshimjs/qrcodejs
   },
 
   getStyles: function () {
