@@ -66,8 +66,9 @@ Module.register('MMM-Thingiverse', {
     }
     nextLoad = nextLoad;
     var self = this;
+
     setTimeout(function () {
-      self.getData();
+      this.thingId += 1;
     }, nextLoad);
   },
 
@@ -76,14 +77,19 @@ Module.register('MMM-Thingiverse', {
 
     var wrapper = document.createElement('div');
     if (this.dataRequest) {
+      var thing = this.dataRequest.hits[this.thingId];
       var wrapperDataRequest = document.createElement('div');
-      wrapperDataRequest.innerHTML = this.dataRequest.title;
+      wrapperDataRequest.innerHTML = thing.creator.name;
 
       var labelDataRequest = document.createElement('label');
-      labelDataRequest.innerHTML = this.translate('TITLE');
+      labelDataRequest.innerHTML = thing.name;
+
+      var thumbnail = document.createElement('img');
+      thumbnail.src = thing.thumbnail;
 
       wrapper.appendChild(labelDataRequest);
       wrapper.appendChild(wrapperDataRequest);
+      wrapper.appendChild(thumbnail);
     }
 
     if (this.dataNotification) {
@@ -119,7 +125,7 @@ Module.register('MMM-Thingiverse', {
       self.updateDom(self.config.animationSpeed);
     }
     this.loaded = true;
-
+    console.log(data);
     this.sendSocketNotification('MMM-Thingiverse-NOTIFICATION_TEST', data);
   },
 
