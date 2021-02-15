@@ -23,7 +23,7 @@ Module.register('MMM-Thingiverse', {
     var dataRequest = null;
     var dataNotification = null;
 
-    this.thingId = -1;
+    this.currentThingId = -1;
     this.loaded = false;
     this.things = { hits: [] };
 
@@ -70,7 +70,7 @@ Module.register('MMM-Thingiverse', {
     var self = this;
 
     setTimeout(function () {
-      self.thingId += 1;
+      self.currentThingId += 1;
       self.processData(self.things);
     }, nextLoad);
   },
@@ -82,8 +82,9 @@ Module.register('MMM-Thingiverse', {
     wrapper.classList.add('MMM-Thingiverse-wrapper');
 
     if (this.dataRequest) {
-      var thing = this.dataRequest.hits[self.thingId];
-      self.thingId = (self.thingId + 1) % this.dataRequest.hits.length;
+      var thing = this.dataRequest.hits[self.currentThingId];
+      self.currentThingId =
+        (self.currentThingId + 1) % this.dataRequest.hits.length;
 
       if (thing) {
         var thingCreator = document.createElement('div');
@@ -123,7 +124,7 @@ Module.register('MMM-Thingiverse', {
 
   processData: function (data) {
     var self = this;
-    this.thingId = this.config.startAtRandom
+    this.currentThingId = this.config.startAtRandom
       ? Math.floor(Math.random() * data.hits.length + 1)
       : 0;
     this.dataRequest = data;
