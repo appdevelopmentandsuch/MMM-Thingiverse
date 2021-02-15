@@ -82,6 +82,7 @@ Module.register('MMM-Thingiverse', {
 
     if (this.dataRequest) {
       var thing = this.dataRequest.hits[self.thingId];
+      self.thingId = self.thingId + 1;
       var wrapperDataRequest = document.createElement('div');
       wrapperDataRequest.innerHTML = thing.creator.name;
 
@@ -121,7 +122,6 @@ Module.register('MMM-Thingiverse', {
       self.updateDom(self.config.animationSpeed);
     }
     this.loaded = true;
-    console.log(data);
     this.sendSocketNotification('MMM-Thingiverse-NOTIFICATION_TEST', data);
   },
 
