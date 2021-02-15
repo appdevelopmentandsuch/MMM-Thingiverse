@@ -100,8 +100,8 @@ Module.register('MMM-Thingiverse', {
         thingThumbnail.src = thing.thumbnail;
 
         wrapper.appendChild(thingName);
-        wrapper.appendChild(thingCreator);
         wrapper.appendChild(thingThumbnail);
+        wrapper.appendChild(thingCreator);
       }
     }
 
