@@ -48,6 +48,10 @@ Module.register('MMM-Thingiverse', {
     dataRequest.onreadystatechange = function () {
       if (this.readyState === 4) {
         if (this.status === 200) {
+          self.iterations = 0;
+          self.currentThingId = this.config.startAtRandom
+            ? Math.floor(Math.random() * data.hits.length + 1)
+            : 0;
           self.things = JSON.parse(this.response);
           self.currentPage = self.currentPage + 1;
           self.processData(self.things);
@@ -152,10 +156,7 @@ Module.register('MMM-Thingiverse', {
 
   processData: function (data) {
     var self = this;
-    self.iterations = 0;
-    self.currentThingId = this.config.startAtRandom
-      ? Math.floor(Math.random() * data.hits.length + 1)
-      : 0;
+
     this.dataRequest = data;
     if (this.loaded === false) {
       self.updateDom(self.config.animationSpeed);
