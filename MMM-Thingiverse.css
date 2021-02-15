@@ -20,10 +20,12 @@
 
 .MMM-Thingiverse-creator {
   font-size: medium;
+  margin: 0px;
 }
 
 .MMM-Thingiverse-name {
   font-size: large;
+  margin: 0px;
 }
 
 .MMM-Thingiverse-thumbnail {
