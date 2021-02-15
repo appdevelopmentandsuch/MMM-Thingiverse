@@ -22,7 +22,6 @@ Module.register('MMM-Thingiverse', {
   start: function () {
     var self = this;
     var dataRequest = null;
-    var dataNotification = null;
 
     this.iterations = 0;
     this.currentThingId = -1;
@@ -84,7 +83,9 @@ Module.register('MMM-Thingiverse', {
     nextLoad = nextLoad;
     var self = this;
 
-    setTimeout(function () {}, nextLoad);
+    setTimeout(function () {
+      getData();
+    }, nextLoad);
   },
 
   getDom: function () {
@@ -165,13 +166,7 @@ Module.register('MMM-Thingiverse', {
       self.updateDom(self.config.animationSpeed);
     }
     this.loaded = true;
-    this.sendSocketNotification('MMM-Thingiverse-NOTIFICATION_TEST', data);
   },
 
-  socketNotificationReceived: function (notification, payload) {
-    if (notification === 'MMM-Thingiverse-NOTIFICATION_TEST') {
-      this.dataNotification = payload;
-      this.updateDom();
-    }
-  },
+  socketNotificationReceived: function (notification, payload) {},
 });
