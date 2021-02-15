@@ -6,7 +6,7 @@
  * By Lucas Bock
  * MIT Licensed.
  */
-var QRCode = require('qrcodejs');
+import QRCode from 'qrcodejs';
 
 Module.register('MMM-Thingiverse', {
   defaults: {
