@@ -29,6 +29,7 @@ Module.register('MMM-Thingiverse', {
     this.currentPage = 1;
     this.loaded = false;
     this.things = { hits: [] };
+    this.qrSize = 60;
 
     this.getData();
     setInterval(function () {
@@ -119,8 +120,8 @@ Module.register('MMM-Thingiverse', {
 
           var _ = new QRCode(qrCodeElement, {
             text: thing.public_url,
-            width: 60,
-            height: 60,
+            width: self.qrSize,
+            height: self.qrSize,
           });
 
           row.appendChild(qrCodeElement);
