@@ -19,14 +19,14 @@
 }
 
 .MMM-Thingiverse-creator {
-  font-size: small;
+  font-size: medium;
 }
 
 .MMM-Thingiverse-name {
-  font-size: large;
+  font-size: larger;
 }
 
 .MMM-Thingiverse-thumbnail {
-  max-width: 30%;
-  max-height: 30%;
+  max-width: 20%;
+  max-height: 20%;
 }
