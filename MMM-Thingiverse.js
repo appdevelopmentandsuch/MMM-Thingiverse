@@ -113,7 +113,7 @@ Module.register('MMM-Thingiverse', {
         var qrCode = document.createElement('div');
         qrCode.classList.add('MMM-Thingiverse-qrcode');
 
-        new QRCode(qrCode, thing.public_url);
+        var qrCode = new QRCode(qrCode, thing.public_url);
 
         row.appendChild(thingThumbnail);
         row.appendChild(qrCode);
