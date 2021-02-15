@@ -14,6 +14,7 @@ Module.register('MMM-Thingiverse', {
     retryDelay: 5000,
     thingCount: 100,
     startAtRandom: false,
+    displayQRLink: false,
   },
 
   requiresVersion: '2.1.0',
@@ -110,17 +111,20 @@ Module.register('MMM-Thingiverse', {
         thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
         thingThumbnail.src = thing.thumbnail;
 
-        var qrCodeElement = document.createElement('div');
-        qrCodeElement.classList.add('MMM-Thingiverse-qrcode');
-
-        var _ = new QRCode(qrCodeElement, {
-          text: thing.public_url,
-          width: 60,
-          height: 60,
-        });
-
         row.appendChild(thingThumbnail);
-        row.appendChild(qrCodeElement);
+
+        if (self.displayQRLink) {
+          var qrCodeElement = document.createElement('div');
+          qrCodeElement.classList.add('MMM-Thingiverse-qrcode');
+
+          var _ = new QRCode(qrCodeElement, {
+            text: thing.public_url,
+            width: 60,
+            height: 60,
+          });
+
+          row.appendChild(qrCodeElement);
+        }
 
         wrapper.appendChild(thingName);
         wrapper.appendChild(row);
