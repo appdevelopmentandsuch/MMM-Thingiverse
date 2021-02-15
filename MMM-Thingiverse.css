@@ -28,6 +28,18 @@
   margin: 0px;
 }
 
+.MMM-Thingiverse-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-items: center;
+}
+
+.MMM-Thingiverse-qrcode {
+  max-width: 15%;
+  max-height: 15%;
+}
+
 .MMM-Thingiverse-thumbnail {
   max-width: 20%;
   max-height: 20%;

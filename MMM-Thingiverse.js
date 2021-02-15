@@ -95,9 +95,12 @@ Module.register('MMM-Thingiverse', {
         self.iterations = self.iterations + 1;
         self.currentThingId = self.currentThingId + 1;
 
-        var thingCreator = document.createElement('p');
+        var thingCreator = document.createElement('h4');
         thingCreator.classList.add('MMM-Thingiverse-creator');
         thingCreator.innerHTML = `<i>${thing.creator.name}</i>`;
+
+        var row = document.createElement('div');
+        row.classList.add('MMM-Thingiverse-row');
 
         var thingName = document.createElement('p');
         thingName.classList.add('MMM-Thingiverse-name');
@@ -107,8 +110,16 @@ Module.register('MMM-Thingiverse', {
         thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
         thingThumbnail.src = thing.thumbnail;
 
+        var qrCode = document.createElement('div');
+        qrCode.classList.add('MMM-Thingiverse-qrcode');
+
+        new QRCode(qrCode, thing.public_url);
+
+        row.appendChild(thingThumbnail);
+        row.appendChild(qrCode);
+
         wrapper.appendChild(thingName);
-        wrapper.appendChild(thingThumbnail);
+        wrapper.appendChild(row);
         wrapper.appendChild(thingCreator);
       }
     }
