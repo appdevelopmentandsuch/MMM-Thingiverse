@@ -99,7 +99,7 @@ Module.register('MMM-Thingiverse', {
         thingCreator.classList.add('MMM-Thingiverse-creator');
         thingCreator.innerHTML = thing.creator.name;
 
-        var thingName = document.createElement('label');
+        var thingName = document.createElement('div');
         thingName.classList.add('MMM-Thingiverse-name');
         thingName.innerHTML = thing.name;
 
