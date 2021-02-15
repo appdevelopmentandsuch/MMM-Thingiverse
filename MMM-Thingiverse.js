@@ -23,6 +23,7 @@ Module.register('MMM-Thingiverse', {
 
     this.thingId = -1;
     this.loaded = false;
+    this.things = { total: 0, hits: [] };
 
     this.getData();
     setInterval(function () {
@@ -43,7 +44,8 @@ Module.register('MMM-Thingiverse', {
       if (this.readyState === 4) {
         console.log(this.status);
         if (this.status === 200) {
-          self.processData(JSON.parse(this.response));
+          this.things = JSON.parse(this.response);
+          self.processData(this.things);
         } else if (this.status === 401) {
           self.updateDom(self.config.animationSpeed);
           Log.error(self.name, this.status);
@@ -69,6 +71,7 @@ Module.register('MMM-Thingiverse', {
 
     setTimeout(function () {
       this.thingId += 1;
+      self.processData(this.things);
     }, nextLoad);
   },
 
