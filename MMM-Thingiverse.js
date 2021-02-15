@@ -97,11 +97,11 @@ Module.register('MMM-Thingiverse', {
 
         var thingCreator = document.createElement('p');
         thingCreator.classList.add('MMM-Thingiverse-creator');
-        thingCreator.innerHTML = thing.creator.name;
+        thingCreator.innerHTML = `<i>${thing.creator.name}</i>`;
 
         var thingName = document.createElement('p');
         thingName.classList.add('MMM-Thingiverse-name');
-        thingName.innerHTML = thing.name;
+        thingName.innerHTML = `<b>${thing.name}</b>`;
 
         var thingThumbnail = document.createElement('img');
         thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
