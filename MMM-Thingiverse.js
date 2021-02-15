@@ -49,10 +49,10 @@ Module.register('MMM-Thingiverse', {
       if (this.readyState === 4) {
         if (this.status === 200) {
           self.iterations = 0;
-          self.currentThingId = self.config.startAtRandom
-            ? Math.floor(Math.random() * data.hits.length + 1)
-            : 0;
           self.things = JSON.parse(this.response);
+          self.currentThingId = self.config.startAtRandom
+            ? Math.floor(Math.random() * self.thing.hits.length)
+            : 0;
           self.currentPage = self.currentPage + 1;
           self.processData(self.things);
         } else if (this.status === 401) {
