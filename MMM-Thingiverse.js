@@ -84,7 +84,7 @@ Module.register('MMM-Thingiverse', {
     var self = this;
 
     setTimeout(function () {
-      getData();
+      self.getData();
     }, nextLoad);
   },
 
