@@ -51,7 +51,7 @@ Module.register('MMM-Thingiverse', {
           self.iterations = 0;
           self.things = JSON.parse(this.response);
           self.currentThingId = self.config.startAtRandom
-            ? Math.floor(Math.random() * self.thing.hits.length)
+            ? Math.floor(Math.random() * self.things.hits.length)
             : 0;
           self.currentPage = self.currentPage + 1;
           self.processData(self.things);
