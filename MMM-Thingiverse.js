@@ -73,7 +73,7 @@ Module.register('MMM-Thingiverse', {
     var self = this;
 
     setTimeout(function () {
-      if (self.iterations === self.things.hits.length) {
+      if (self.iterations >= self.things.hits.length) {
         self.getData();
       } else {
         self.processData(self.things);
