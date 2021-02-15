@@ -12,6 +12,7 @@ Module.register('MMM-Thingiverse', {
     appToken: '',
     updateInterval: 60000,
     retryDelay: 5000,
+    thingCount: 100,
   },
 
   requiresVersion: '2.1.0',
@@ -23,7 +24,7 @@ Module.register('MMM-Thingiverse', {
 
     this.thingId = -1;
     this.loaded = false;
-    this.things = { total: 0, hits: [] };
+    this.things = { hits: [] };
 
     this.getData();
     setInterval(function () {
@@ -34,7 +35,7 @@ Module.register('MMM-Thingiverse', {
   getData: function () {
     var self = this;
 
-    var urlApi = `https://api.thingiverse.com/search/?sort=popular&access_token=${this.config.appToken}`;
+    var urlApi = `https://api.thingiverse.com/search/?sort=popular&access_token=${this.config.appToken}&per_page=${this.config.thingCount}`;
     var retry = true;
 
     var dataRequest = new XMLHttpRequest();
