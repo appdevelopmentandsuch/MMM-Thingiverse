@@ -81,7 +81,7 @@ Module.register('MMM-Thingiverse', {
     var wrapper = document.createElement('div');
 
     if (this.dataRequest) {
-      var thing = this.dataRequest.hits[this.thingId];
+      var thing = this.dataRequest.hits[self.thingId];
       var wrapperDataRequest = document.createElement('div');
       wrapperDataRequest.innerHTML = thing.creator.name;
 
@@ -96,21 +96,6 @@ Module.register('MMM-Thingiverse', {
       wrapper.appendChild(thumbnail);
     }
 
-    if (this.dataNotification) {
-      var thing = this.dataRequest.hits[this.thingId];
-      var wrapperDataRequest = document.createElement('div');
-      wrapperDataRequest.innerHTML = thing.creator.name;
-
-      var labelDataRequest = document.createElement('label');
-      labelDataRequest.innerHTML = thing.name;
-
-      var thumbnail = document.createElement('img');
-      thumbnail.src = thing.thumbnail;
-
-      wrapper.appendChild(labelDataRequest);
-      wrapper.appendChild(wrapperDataRequest);
-      wrapper.appendChild(thumbnail);
-    }
     return wrapper;
   },
 
