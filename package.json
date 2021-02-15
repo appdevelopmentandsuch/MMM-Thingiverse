@@ -1,8 +1,8 @@
 {
-  "name": "MagicMirror-Modules-Thingiverse",
+  "name": "MMM-Thingiverse",
   "version": "1.0.0",
   "description": "Display 3D printable objects found on Thingiverse",
-  "main": "MagicMirror-Modules-Thingiverse.js",
+  "main": "MMM-Thingiverse.js",
   "author": "Lucas Bock",
   "license": "MIT",
   "devDependencies": {

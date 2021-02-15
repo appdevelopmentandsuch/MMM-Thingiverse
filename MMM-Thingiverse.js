@@ -1,13 +1,13 @@
 /* global Module */
 
 /* Magic Mirror
- * Module: MagicMirror-Modules-Thingiverse
+ * Module: MMM-Thingiverse
  *
  * By
  * MIT Licensed.
  */
 
-Module.register('MagicMirror-Modules-Thingiverse', {
+Module.register('MMM-Thingiverse', {
   defaults: {
     appToken: '',
     updateInterval: 60000,
@@ -21,6 +21,7 @@ Module.register('MagicMirror-Modules-Thingiverse', {
     var dataRequest = null;
     var dataNotification = null;
 
+    this.thingId = -1;
     this.loaded = false;
 
     this.getData();
@@ -59,15 +60,15 @@ Module.register('MagicMirror-Modules-Thingiverse', {
   },
 
   scheduleUpdate: function (delay) {
-    // var nextLoad = this.config.updateInterval;
-    // if (typeof delay !== 'undefined' && delay >= 0) {
-    //   nextLoad = delay;
-    // }
-    // nextLoad = nextLoad;
-    // var self = this;
-    // setTimeout(function () {
-    //   self.getData();
-    // }, nextLoad);
+    var nextLoad = this.config.updateInterval;
+    if (typeof delay !== 'undefined' && delay >= 0) {
+      nextLoad = delay;
+    }
+    nextLoad = nextLoad;
+    var self = this;
+    setTimeout(function () {
+      self.getData();
+    }, nextLoad);
   },
 
   getDom: function () {
@@ -101,7 +102,7 @@ Module.register('MagicMirror-Modules-Thingiverse', {
   },
 
   getStyles: function () {
-    return ['MagicMirror-Modules-Thingiverse.css'];
+    return ['MMM-Thingiverse.css'];
   },
 
   getTranslations: function () {
@@ -112,20 +113,18 @@ Module.register('MagicMirror-Modules-Thingiverse', {
 
   processData: function (data) {
     var self = this;
+    this.thingId = 0;
     this.dataRequest = data;
     if (this.loaded === false) {
       self.updateDom(self.config.animationSpeed);
     }
     this.loaded = true;
 
-    this.sendSocketNotification(
-      'MagicMirror-Modules-Thingiverse-NOTIFICATION_TEST',
-      data,
-    );
+    this.sendSocketNotification('MMM-Thingiverse-NOTIFICATION_TEST', data);
   },
 
   socketNotificationReceived: function (notification, payload) {
-    if (notification === 'MagicMirror-Modules-Thingiverse-NOTIFICATION_TEST') {
+    if (notification === 'MMM-Thingiverse-NOTIFICATION_TEST') {
       this.dataNotification = payload;
       this.updateDom();
     }
