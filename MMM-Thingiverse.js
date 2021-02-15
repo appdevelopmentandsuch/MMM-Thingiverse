@@ -6,7 +6,6 @@
  * By Lucas Bock
  * MIT Licensed.
  */
-import QRCode from 'qrcodejs';
 
 Module.register('MMM-Thingiverse', {
   defaults: {
@@ -129,7 +128,7 @@ Module.register('MMM-Thingiverse', {
   },
 
   getScripts: function () {
-    return [];
+    return ['qrcodejs'];
   },
 
   getStyles: function () {
