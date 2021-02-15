@@ -107,8 +107,8 @@ Module.register('MMM-Thingiverse', {
         thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
         thingThumbnail.src = thing.thumbnail;
 
-        wrapper.appendChild(thingName);
         wrapper.appendChild(thingThumbnail);
+        wrapper.appendChild(thingName);
         wrapper.appendChild(thingCreator);
       }
     }
