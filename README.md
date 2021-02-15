@@ -4,6 +4,13 @@ This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror
 
 Display 3D printable objects found on Thingiverse
 
+## Quickstart
+
+```bash
+cd ~/MagicMirror/modules
+git clone https://github.com/appdevelopmentandsuch/MMM-Thingiverse
+```
+
 ## Using the module
 
 To use this module, add the following configuration block to the modules array in the `config/config.js` file:
