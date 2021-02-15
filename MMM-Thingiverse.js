@@ -44,7 +44,7 @@ Module.register('MMM-Thingiverse', {
       if (this.readyState === 4) {
         console.log(this.status);
         if (this.status === 200) {
-          this.things = JSON.parse(this.response);
+          self.things = JSON.parse(this.response);
           self.processData(this.things);
         } else if (this.status === 401) {
           self.updateDom(self.config.animationSpeed);
@@ -70,8 +70,8 @@ Module.register('MMM-Thingiverse', {
     var self = this;
 
     setTimeout(function () {
-      this.thingId += 1;
-      self.processData(this.things);
+      self.thingId += 1;
+      self.processData(self.things);
     }, nextLoad);
   },
 
@@ -79,6 +79,7 @@ Module.register('MMM-Thingiverse', {
     var self = this;
 
     var wrapper = document.createElement('div');
+
     if (this.dataRequest) {
       var thing = this.dataRequest.hits[this.thingId];
       var wrapperDataRequest = document.createElement('div');
@@ -96,12 +97,19 @@ Module.register('MMM-Thingiverse', {
     }
 
     if (this.dataNotification) {
-      var wrapperDataNotification = document.createElement('div');
+      var thing = this.dataRequest.hits[this.thingId];
+      var wrapperDataRequest = document.createElement('div');
+      wrapperDataRequest.innerHTML = thing.creator.name;
 
-      wrapperDataNotification.innerHTML =
-        this.translate('UPDATE') + ': ' + this.dataNotification.date;
+      var labelDataRequest = document.createElement('label');
+      labelDataRequest.innerHTML = thing.name;
 
-      wrapper.appendChild(wrapperDataNotification);
+      var thumbnail = document.createElement('img');
+      thumbnail.src = thing.thumbnail;
+
+      wrapper.appendChild(labelDataRequest);
+      wrapper.appendChild(wrapperDataRequest);
+      wrapper.appendChild(thumbnail);
     }
     return wrapper;
   },
