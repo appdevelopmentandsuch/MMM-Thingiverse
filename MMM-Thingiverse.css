@@ -11,15 +11,14 @@
 
 .MMM-Thingiverse-wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-items: center;
 }
 
 .MMM-Thingiverse-creator {
+  font-size: small;
 }
 
 .MMM-Thingiverse-name {
+  font-size: large;
 }
 
 .MMM-Thingiverse-thumbnail {

@@ -3,7 +3,7 @@
 /* Magic Mirror
  * Module: MMM-Thingiverse
  *
- * By
+ * By Lucas Bock
  * MIT Licensed.
  */
 
@@ -13,6 +13,7 @@ Module.register('MMM-Thingiverse', {
     updateInterval: 60000,
     retryDelay: 5000,
     thingCount: 100,
+    startAtRandom: false,
   },
 
   requiresVersion: '2.1.0',
@@ -122,7 +123,9 @@ Module.register('MMM-Thingiverse', {
 
   processData: function (data) {
     var self = this;
-    this.thingId = 0;
+    this.thingId = this.config.startAtRandom
+      ? Math.floor(Math.random() * data.hits.length + 1)
+      : 0;
     this.dataRequest = data;
     if (this.loaded === false) {
       self.updateDom(self.config.animationSpeed);
