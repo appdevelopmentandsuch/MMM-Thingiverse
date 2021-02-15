@@ -44,8 +44,8 @@ Module.register('MMM-Thingiverse', {
       if (this.readyState === 4) {
         console.log(this.status);
         if (this.status === 200) {
-          this.things = JSON.parse(this.response);
-          self.processData(this.things);
+          self.things = JSON.parse(this.response);
+          self.processData(self.things);
         } else if (this.status === 401) {
           self.updateDom(self.config.animationSpeed);
           Log.error(self.name, this.status);
