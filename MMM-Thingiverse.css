@@ -38,9 +38,11 @@
 .MMM-Thingiverse-qrcode {
   max-width: 15%;
   max-height: 15%;
+  margin: 4px;
 }
 
 .MMM-Thingiverse-thumbnail {
   max-width: 20%;
   max-height: 20%;
+  margin: 4px;
 }
