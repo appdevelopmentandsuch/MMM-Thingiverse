@@ -128,7 +128,7 @@ Module.register('MMM-Thingiverse', {
   },
 
   getScripts: function () {
-    return ['./node_modules/qrcodejs/qrcode.min.js'];
+    return ['qrcode.min.js'];
   },
 
   getStyles: function () {
