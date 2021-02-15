@@ -49,7 +49,7 @@ Module.register('MMM-Thingiverse', {
       if (this.readyState === 4) {
         if (this.status === 200) {
           self.iterations = 0;
-          self.currentThingId = this.config.startAtRandom
+          self.currentThingId = self.config.startAtRandom
             ? Math.floor(Math.random() * data.hits.length + 1)
             : 0;
           self.things = JSON.parse(this.response);
