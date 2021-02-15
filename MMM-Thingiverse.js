@@ -33,7 +33,7 @@ Module.register('MMM-Thingiverse', {
   getData: function () {
     var self = this;
 
-    var urlApi = `https://api.thingiverse.com/search/?sort=popular&access_token=${appToken}`;
+    var urlApi = `https://api.thingiverse.com/search/?sort=popular&access_token=${this.config.appToken}`;
     var retry = true;
 
     var dataRequest = new XMLHttpRequest();
