@@ -23,7 +23,9 @@ Module.register('MMM-Thingiverse', {
     var dataRequest = null;
     var dataNotification = null;
 
+    this.iterations = 0;
     this.currentThingId = -1;
+    this.currentPage = 1;
     this.loaded = false;
     this.things = { hits: [] };
 
@@ -36,7 +38,7 @@ Module.register('MMM-Thingiverse', {
   getData: function () {
     var self = this;
 
-    var urlApi = `https://api.thingiverse.com/search/?sort=popular&access_token=${this.config.appToken}&per_page=${this.config.thingCount}`;
+    var urlApi = `https://api.thingiverse.com/search/?sort=popular&access_token=${this.config.appToken}&per_page=${this.config.thingCount}&page=${self.currentPage}`;
     var retry = true;
 
     var dataRequest = new XMLHttpRequest();
@@ -45,6 +47,7 @@ Module.register('MMM-Thingiverse', {
       if (this.readyState === 4) {
         if (this.status === 200) {
           self.things = JSON.parse(this.response);
+          self.currentPage = self.currentPage + 1;
           self.processData(self.things);
         } else if (this.status === 401) {
           self.updateDom(self.config.animationSpeed);
@@ -70,8 +73,12 @@ Module.register('MMM-Thingiverse', {
     var self = this;
 
     setTimeout(function () {
-      self.currentThingId += 1;
-      self.processData(self.things);
+      if (self.iterations === self.things.length) {
+        this.getData();
+      } else {
+        self.currentThingId += 1;
+        self.processData(self.things);
+      }
     }, nextLoad);
   },
 
@@ -83,26 +90,25 @@ Module.register('MMM-Thingiverse', {
 
     if (this.dataRequest) {
       var thing = this.dataRequest.hits[self.currentThingId];
+      self.iterations = self.iterations + 1;
       self.currentThingId =
         (self.currentThingId + 1) % this.dataRequest.hits.length;
 
-      if (thing) {
-        var thingCreator = document.createElement('div');
-        thingCreator.classList.add('MMM-Thingiverse-creator');
-        thingCreator.innerHTML = thing.creator.name;
+      var thingCreator = document.createElement('div');
+      thingCreator.classList.add('MMM-Thingiverse-creator');
+      thingCreator.innerHTML = thing.creator.name;
 
-        var thingName = document.createElement('label');
-        thingName.classList.add('MMM-Thingiverse-name');
-        thingName.innerHTML = thing.name;
+      var thingName = document.createElement('label');
+      thingName.classList.add('MMM-Thingiverse-name');
+      thingName.innerHTML = thing.name;
 
-        var thingThumbnail = document.createElement('img');
-        thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
-        thingThumbnail.src = thing.thumbnail;
+      var thingThumbnail = document.createElement('img');
+      thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
+      thingThumbnail.src = thing.thumbnail;
 
-        wrapper.appendChild(thingName);
-        wrapper.appendChild(thingThumbnail);
-        wrapper.appendChild(thingCreator);
-      }
+      wrapper.appendChild(thingName);
+      wrapper.appendChild(thingThumbnail);
+      wrapper.appendChild(thingCreator);
     }
 
     return wrapper;
@@ -124,7 +130,8 @@ Module.register('MMM-Thingiverse', {
 
   processData: function (data) {
     var self = this;
-    this.currentThingId = this.config.startAtRandom
+    self.iterations = 0;
+    self.currentThingId = this.config.startAtRandom
       ? Math.floor(Math.random() * data.hits.length + 1)
       : 0;
     this.dataRequest = data;
