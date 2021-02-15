@@ -114,7 +114,7 @@ Module.register('MMM-Thingiverse', {
 
         row.appendChild(thingThumbnail);
 
-        if (self.displayQRLink) {
+        if (self.config.displayQRLink) {
           var qrCodeElement = document.createElement('div');
           qrCodeElement.classList.add('MMM-Thingiverse-qrcode');
 
