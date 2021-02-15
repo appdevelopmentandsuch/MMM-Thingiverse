@@ -115,8 +115,8 @@ Module.register('MMM-Thingiverse', {
 
         var _ = new QRCode(qrCodeElement, {
           text: thing.public_url,
-          width: 40,
-          height: 40,
+          width: 60,
+          height: 60,
         });
 
         row.appendChild(thingThumbnail);

@@ -31,7 +31,7 @@
 .MMM-Thingiverse-row {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-items: center;
 }
 
