@@ -88,11 +88,12 @@ Module.register('MMM-Thingiverse', {
     wrapper.classList.add('MMM-Thingiverse-wrapper');
 
     if (this.dataRequest) {
-      var thing = this.dataRequest.hits[self.currentThingId];
+      var thing = this.dataRequest.hits[
+        self.currentThingId % this.dataRequest.hits.length
+      ];
       if (thing) {
         self.iterations = self.iterations + 1;
-        self.currentThingId =
-          (self.currentThingId + 1) % this.dataRequest.hits.length;
+        self.currentThingId = self.currentThingId + 1;
 
         var thingCreator = document.createElement('div');
         thingCreator.classList.add('MMM-Thingiverse-creator');
