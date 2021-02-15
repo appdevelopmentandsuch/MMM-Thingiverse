@@ -110,13 +110,13 @@ Module.register('MMM-Thingiverse', {
         thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
         thingThumbnail.src = thing.thumbnail;
 
-        var qrCode = document.createElement('div');
-        qrCode.classList.add('MMM-Thingiverse-qrcode');
+        var qrCodeElement = document.createElement('div');
+        qrCodeElement.classList.add('MMM-Thingiverse-qrcode');
 
-        var qrCode = new QRCode(qrCode, thing.public_url);
+        var qrCode = new QRCode(qrCodeElement, thing.public_url);
 
         row.appendChild(thingThumbnail);
-        row.appendChild(qrCode);
+        row.appendChild(qrCodeElement);
 
         wrapper.appendChild(thingName);
         wrapper.appendChild(row);
