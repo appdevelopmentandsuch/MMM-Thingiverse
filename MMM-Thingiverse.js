@@ -73,7 +73,7 @@ Module.register('MMM-Thingiverse', {
     var self = this;
 
     setTimeout(function () {
-      if (self.iterations === self.things.length) {
+      if (self.iterations === self.things.hits.length) {
         this.getData();
       } else {
         self.currentThingId += 1;
@@ -90,25 +90,27 @@ Module.register('MMM-Thingiverse', {
 
     if (this.dataRequest) {
       var thing = this.dataRequest.hits[self.currentThingId];
-      self.iterations = self.iterations + 1;
-      self.currentThingId =
-        (self.currentThingId + 1) % this.dataRequest.hits.length;
+      if (thing) {
+        self.iterations = self.iterations + 1;
+        self.currentThingId =
+          (self.currentThingId + 1) % this.dataRequest.hits.length;
 
-      var thingCreator = document.createElement('div');
-      thingCreator.classList.add('MMM-Thingiverse-creator');
-      thingCreator.innerHTML = thing.creator.name;
+        var thingCreator = document.createElement('div');
+        thingCreator.classList.add('MMM-Thingiverse-creator');
+        thingCreator.innerHTML = thing.creator.name;
 
-      var thingName = document.createElement('label');
-      thingName.classList.add('MMM-Thingiverse-name');
-      thingName.innerHTML = thing.name;
+        var thingName = document.createElement('label');
+        thingName.classList.add('MMM-Thingiverse-name');
+        thingName.innerHTML = thing.name;
 
-      var thingThumbnail = document.createElement('img');
-      thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
-      thingThumbnail.src = thing.thumbnail;
+        var thingThumbnail = document.createElement('img');
+        thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
+        thingThumbnail.src = thing.thumbnail;
 
-      wrapper.appendChild(thingName);
-      wrapper.appendChild(thingThumbnail);
-      wrapper.appendChild(thingCreator);
+        wrapper.appendChild(thingName);
+        wrapper.appendChild(thingThumbnail);
+        wrapper.appendChild(thingCreator);
+      }
     }
 
     return wrapper;
