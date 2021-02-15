@@ -29,7 +29,7 @@ Module.register('MMM-Thingiverse', {
     this.currentPage = 1;
     this.loaded = false;
     this.things = { hits: [] };
-    this.qrSize = 60;
+    this.qrSize = 100;
 
     this.getData();
     setInterval(function () {
