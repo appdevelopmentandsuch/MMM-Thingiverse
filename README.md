@@ -1,4 +1,4 @@
-# MagicMirror-Modules-Thingiverse
+# MMM-Thingiverse
 
 This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/).
 
@@ -12,9 +12,9 @@ To use this module, add the following configuration block to the modules array i
 var config = {
   modules: [
     {
-      module: 'MagicMirror-Modules-Thingiverse',
+      module: 'MMMM-Thingiverse',
       config: {
-        // See below for configurable options
+        appToken: '',
       },
     },
   ],
@@ -23,7 +23,10 @@ var config = {
 
 ## Configuration options
 
-| Option    | Description                                                                                                     |
-| --------- | --------------------------------------------------------------------------------------------------------------- |
-| `option1` | _Required_ DESCRIPTION HERE                                                                                     |
-| `option2` | _Optional_ DESCRIPTION HERE TOO <br><br>**Type:** `int`(milliseconds) <br>Default 60000 milliseconds (1 minute) |
+| Option           | Description                                                                                                                                                                                           |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `appToken`       | _Required_ A token aquired from the Thingiverse REST API to fetch things. You can aquire a token by going to https://www.thingiverse.com/apps/create and creating a **Web App**                       |
+| `updateInterval` | _Optional_ The time in milliseconds before switching to the next thing. <br><br>**Type:** `int`(milliseconds) <br>Default 60000 milliseconds (1 minute)                                               |
+| `retryDelay`     | _Optional_ The time in milliseconds before retrying the Thingiverse REST API due to a previous failure to get things. <br><br>**Type:** `int`(milliseconds) <br>Default 5000 milliseconds (5 seconds) |
+| `thingCount`     | _Optional_ The number of things you wish to grab and cycle through. <br><br>**Type:** `int`(count) <br>Default 100                                                                                    |
+| `startAtRandom`  | _Optional_ Start at a random position in the things. <br><br>**Type:** `boolean`(true/false) <br>Default false                                                                                        |
