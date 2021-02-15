@@ -76,7 +76,6 @@ Module.register('MMM-Thingiverse', {
       if (self.iterations === self.things.hits.length) {
         this.getData();
       } else {
-        self.currentThingId += 1;
         self.processData(self.things);
       }
     }, nextLoad);
