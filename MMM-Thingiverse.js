@@ -41,9 +41,7 @@ Module.register('MMM-Thingiverse', {
     var dataRequest = new XMLHttpRequest();
     dataRequest.open('GET', urlApi, true);
     dataRequest.onreadystatechange = function () {
-      console.log(this.readyState);
       if (this.readyState === 4) {
-        console.log(this.status);
         if (this.status === 200) {
           self.things = JSON.parse(this.response);
           self.processData(self.things);
@@ -80,23 +78,28 @@ Module.register('MMM-Thingiverse', {
     var self = this;
 
     var wrapper = document.createElement('div');
+    wrapper.classList.add('MMM-Thingiverse-wrapper');
 
     if (this.dataRequest) {
       var thing = this.dataRequest.hits[self.thingId];
       self.thingId = (self.thingId + 1) % this.dataRequest.hits.length;
+
       if (thing) {
-        var wrapperDataRequest = document.createElement('div');
-        wrapperDataRequest.innerHTML = thing.creator.name;
+        var thingCreator = document.createElement('div');
+        thingCreator.classList.add('MMM-Thingiverse-creator');
+        thingCreator.innerHTML = thing.creator.name;
 
-        var labelDataRequest = document.createElement('label');
-        labelDataRequest.innerHTML = thing.name;
+        var thingName = document.createElement('label');
+        thingName.classList.add('MMM-Thingiverse-name');
+        thingName.innerHTML = thing.name;
 
-        var thumbnail = document.createElement('img');
-        thumbnail.src = thing.thumbnail;
+        var thingThumbnail = document.createElement('img');
+        thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
+        thingThumbnail.src = thing.thumbnail;
 
-        wrapper.appendChild(labelDataRequest);
-        wrapper.appendChild(wrapperDataRequest);
-        wrapper.appendChild(thumbnail);
+        wrapper.appendChild(thingName);
+        wrapper.appendChild(thingCreator);
+        wrapper.appendChild(thingThumbnail);
       }
     }
 
