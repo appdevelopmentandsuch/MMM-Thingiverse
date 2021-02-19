@@ -28,12 +28,20 @@
 .MMM-Thingiverse-creator {
   font-size: medium;
   margin: 0px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   word-wrap: break-word;
 }
 
 .MMM-Thingiverse-name {
   font-size: large;
   margin: 0px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   word-wrap: break-word;
 }
 
