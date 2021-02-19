@@ -142,7 +142,7 @@ Module.register('MMM-Thingiverse', {
     wrapper.classList.add('MMM-Thingiverse-wrapper');
 
     if (this.dataRequest) {
-      for (var i = 0; i < 2; i++) {
+      for (var i = 0; i < 3; i++) {
         var thing = this.dataRequest.hits[
           self.currentThingId % this.dataRequest.hits.length
         ];
