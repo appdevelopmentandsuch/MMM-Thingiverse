@@ -28,7 +28,6 @@ Module.register('MMM-Thingiverse', {
     this.currentPage = 1;
     this.loaded = false;
     this.things = { hits: [] };
-    this.qrSize = 100;
     this.maxPages = 10;
     this.maxThingCount = 101;
 
@@ -142,7 +141,7 @@ Module.register('MMM-Thingiverse', {
   },
 
   getScripts: function () {
-    return [''];
+    return [];
   },
 
   getStyles: function () {
