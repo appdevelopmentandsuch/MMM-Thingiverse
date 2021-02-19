@@ -23,6 +23,7 @@ Module.register('MMM-Thingiverse', {
     var self = this;
     var dataRequest = null;
 
+    this.newRequestTimeout = 10000;
     this.iterations = 0;
     this.currentThingId = -1;
     this.currentPage = 1;
@@ -88,6 +89,52 @@ Module.register('MMM-Thingiverse', {
     }, nextLoad);
   },
 
+  createThingElement: function (thing) {
+    var self = this;
+
+    var thingCard = document.createElement('div');
+    thingCard.classList.add('MMM-Thingiverse-card');
+
+    if (thing) {
+      var thingCreator = document.createElement('h4');
+      thingCreator.classList.add('MMM-Thingiverse-creator');
+      thingCreator.innerHTML = `<i>${thing.creator.name}</i>`;
+
+      var row = document.createElement('div');
+      row.classList.add('MMM-Thingiverse-row');
+
+      var thingName = document.createElement('p');
+      thingName.classList.add('MMM-Thingiverse-name');
+      thingName.innerHTML = `<b>${thing.name}</b>`;
+
+      var thingThumbnail = document.createElement('img');
+      thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
+      thingThumbnail.src = thing.thumbnail;
+      thingThumbnail.alt = thing.name;
+
+      row.appendChild(thingThumbnail);
+
+      if (self.config.displayQRLink) {
+        var qrCodeElement = document.createElement('div');
+        qrCodeElement.classList.add('MMM-Thingiverse-qrcode');
+
+        var _ = new QRCode(qrCodeElement, {
+          text: thing.public_url,
+          width: self.qrSize,
+          height: self.qrSize,
+        });
+
+        row.appendChild(qrCodeElement);
+      }
+
+      thingCard.appendChild(thingName);
+      thingCard.appendChild(row);
+      thingCard.appendChild(thingCreator);
+    }
+
+    return thingCard;
+  },
+
   getDom: function () {
     var self = this;
 
@@ -95,49 +142,20 @@ Module.register('MMM-Thingiverse', {
     wrapper.classList.add('MMM-Thingiverse-wrapper');
 
     if (this.dataRequest) {
-      var thing = this.dataRequest.hits[
-        self.currentThingId % this.dataRequest.hits.length
-      ];
-      if (thing) {
-        self.iterations = self.iterations + 1;
-        self.currentThingId = self.currentThingId + 1;
+      for (var i = 0; i < 2; i++) {
+        var thing = this.dataRequest.hits[
+          self.currentThingId % this.dataRequest.hits.length
+        ];
+        if (thing) {
+          self.iterations = self.iterations + 1;
 
-        var thingCreator = document.createElement('h4');
-        thingCreator.classList.add('MMM-Thingiverse-creator');
-        thingCreator.innerHTML = `<i>${thing.creator.name}</i>`;
+          if (self.iterations >= self.things.hits.length) {
+            self.scheduleUpdate(self.newRequestTimeout);
+          }
 
-        var row = document.createElement('div');
-        row.classList.add('MMM-Thingiverse-row');
-
-        var thingName = document.createElement('p');
-        thingName.classList.add('MMM-Thingiverse-name');
-        thingName.innerHTML = `<b>${thing.name}</b>`;
-
-        var thingThumbnail = document.createElement('img');
-        thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
-        thingThumbnail.src = thing.thumbnail;
-
-        row.appendChild(thingThumbnail);
-
-        if (self.config.displayQRLink) {
-          var qrCodeElement = document.createElement('div');
-          qrCodeElement.classList.add('MMM-Thingiverse-qrcode');
-
-          var _ = new QRCode(qrCodeElement, {
-            text: thing.public_url,
-            width: self.qrSize,
-            height: self.qrSize,
-          });
-
-          row.appendChild(qrCodeElement);
+          self.currentThingId = self.currentThingId + 1;
+          wrapper.appendChild(self.createThingElement(thing));
         }
-        if (self.iterations >= self.things.hits.length) {
-          self.getData();
-        }
-
-        wrapper.appendChild(thingName);
-        wrapper.appendChild(row);
-        wrapper.appendChild(thingCreator);
       }
     }
 
