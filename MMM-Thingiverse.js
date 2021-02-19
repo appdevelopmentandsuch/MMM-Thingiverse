@@ -125,7 +125,7 @@ Module.register('MMM-Thingiverse', {
     wrapper.classList.add('MMM-Thingiverse-wrapper');
 
     if (this.dataRequest) {
-      for (var i = 0; i < self.numThingsDisplayed; i++) {
+      for (var i = 0; i < self.config.numThingsDisplayed; i++) {
         var thing = this.dataRequest.hits[
           self.currentThingId % this.dataRequest.hits.length
         ];
