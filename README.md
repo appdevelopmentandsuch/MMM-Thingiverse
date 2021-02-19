@@ -41,4 +41,3 @@ var config = {
 | `retryDelay`     | _Optional_ The time in milliseconds before retrying the Thingiverse REST API due to a previous failure to get things. <br><br>**Type:** `int`(milliseconds) <br>Default 5000 milliseconds (5 seconds) |
 | `thingCount`     | _Optional_ The number of things you wish to grab and cycle through. <br><br>**Type:** `int`(count) <br>Default 100                                                                                    |
 | `startAtRandom`  | _Optional_ Start at a random position in the things. <br><br>**Type:** `boolean`(true/false) <br>Default false                                                                                        |
-| `displayQRLink`  | _Optional_ Display a QR Code link to the thing. <br><br>**Type:** `boolean`(true/false) <br>Default false                                                                                             |

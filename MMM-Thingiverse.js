@@ -14,7 +14,6 @@ Module.register('MMM-Thingiverse', {
     retryDelay: 5000,
     thingCount: 100,
     startAtRandom: false,
-    displayQRLink: false,
   },
 
   requiresVersion: '2.1.0',
@@ -90,8 +89,6 @@ Module.register('MMM-Thingiverse', {
   },
 
   createThingElement: function (thing) {
-    var self = this;
-
     var thingCard = document.createElement('div');
     thingCard.classList.add('MMM-Thingiverse-card');
 
@@ -99,9 +96,6 @@ Module.register('MMM-Thingiverse', {
       var thingCreator = document.createElement('h4');
       thingCreator.classList.add('MMM-Thingiverse-creator');
       thingCreator.innerHTML = `<i>${thing.creator.name}</i>`;
-
-      var row = document.createElement('div');
-      row.classList.add('MMM-Thingiverse-row');
 
       var thingName = document.createElement('p');
       thingName.classList.add('MMM-Thingiverse-name');
@@ -112,23 +106,8 @@ Module.register('MMM-Thingiverse', {
       thingThumbnail.src = thing.thumbnail;
       thingThumbnail.alt = thing.name;
 
-      row.appendChild(thingThumbnail);
-
-      if (self.config.displayQRLink) {
-        var qrCodeElement = document.createElement('div');
-        qrCodeElement.classList.add('MMM-Thingiverse-qrcode');
-
-        var _ = new QRCode(qrCodeElement, {
-          text: thing.public_url,
-          width: self.qrSize,
-          height: self.qrSize,
-        });
-
-        row.appendChild(qrCodeElement);
-      }
-
       thingCard.appendChild(thingName);
-      thingCard.appendChild(row);
+      thingCard.appendChild(thingThumbnail);
       thingCard.appendChild(thingCreator);
     }
 
@@ -163,7 +142,7 @@ Module.register('MMM-Thingiverse', {
   },
 
   getScripts: function () {
-    return ['qrcode.min.js']; // qrcode.min.js is a library used for QR Code generation. Credit goes to https://github.com/davidshimjs/qrcodejs
+    return [''];
   },
 
   getStyles: function () {

@@ -35,17 +35,6 @@
   margin: 0px;
 }
 
-.MMM-Thingiverse-row {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-items: center;
-}
-
-.MMM-Thingiverse-qrcode {
-  margin: 4px;
-}
-
 .MMM-Thingiverse-thumbnail {
   width: 100%;
   height: 100%;
