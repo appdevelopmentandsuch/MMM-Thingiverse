@@ -15,6 +15,8 @@ Module.register('MMM-Thingiverse', {
     thingCount: 100,
     updateInterval: 60000,
     numThingsDisplayed: 1,
+    searchBy: 'popular',
+    isFeatured: false,
   },
 
   requiresVersion: '2.1.0',
@@ -31,8 +33,12 @@ Module.register('MMM-Thingiverse', {
     this.newRequestTimeout = 10000;
     this.things = { hits: [] };
 
-    if ([1, 3, 5].includes(self.numThingsDisplayed)) {
-      self.numThingsDisplayed = 3;
+    if (!['popular', 'newest'].includes(self.config.searchBy)) {
+      self.config.searchBy = 'popular';
+    }
+
+    if (![1, 3, 5].includes(self.config.numThingsDisplayed)) {
+      self.config.numThingsDisplayed = 3;
     }
 
     this.getData();
@@ -45,7 +51,9 @@ Module.register('MMM-Thingiverse', {
   getData: function () {
     var self = this;
 
-    var urlApi = `https://api.thingiverse.com/search/?sort=popular&access_token=${
+    var urlApi = `https://api.thingiverse.com/search/?sort=${
+      this.config.searchBy
+    }&is_featured=${this.config.isFeatured ? 1 : 0}&access_token=${
       this.config.appToken
     }&per_page=${this.config.thingCount}&page=${
       self.currentPage % self.maxPages
