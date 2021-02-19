@@ -42,7 +42,7 @@
 }
 
 .MMM-Thingiverse-thumbnail {
-  max-width: 20%;
-  max-height: 20%;
+  max-width: 200px;
+  max-height: 200px;
   margin: 4px;
 }
