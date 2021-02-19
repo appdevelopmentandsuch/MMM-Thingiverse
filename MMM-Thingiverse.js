@@ -10,10 +10,11 @@
 Module.register('MMM-Thingiverse', {
   defaults: {
     appToken: '',
-    updateInterval: 60000,
     retryDelay: 5000,
-    thingCount: 100,
     startAtRandom: false,
+    thingCount: 100,
+    updateInterval: 60000,
+    numThingsDisplayed: 1,
   },
 
   requiresVersion: '2.1.0',
@@ -22,16 +23,20 @@ Module.register('MMM-Thingiverse', {
     var self = this;
     var dataRequest = null;
 
-    this.newRequestTimeout = 10000;
-    this.iterations = 0;
-    this.currentThingId = -1;
     this.currentPage = 1;
+    this.currentThingId = -1;
+    this.iterations = 0;
     this.loaded = false;
-    this.things = { hits: [] };
     this.maxPages = 10;
-    this.maxThingCount = 101;
+    this.newRequestTimeout = 10000;
+    this.things = { hits: [] };
+
+    if ([1, 3, 5].includes(self.numThingsDisplayed)) {
+      self.numThingsDisplayed = 3;
+    }
 
     this.getData();
+
     setInterval(function () {
       self.updateDom();
     }, this.config.updateInterval);
@@ -120,7 +125,7 @@ Module.register('MMM-Thingiverse', {
     wrapper.classList.add('MMM-Thingiverse-wrapper');
 
     if (this.dataRequest) {
-      for (var i = 0; i < 3; i++) {
+      for (var i = 0; i < self.numThingsDisplayed; i++) {
         var thing = this.dataRequest.hits[
           self.currentThingId % this.dataRequest.hits.length
         ];
