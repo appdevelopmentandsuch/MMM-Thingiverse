@@ -10,35 +10,37 @@
  */
 
 .MMM-Thingiverse-wrapper {
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
 }
 
 .MMM-Thingiverse-card {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  height: auto;
   justify-items: center;
   width: auto;
-  height: auto;
 }
 
 .MMM-Thingiverse-creator {
   font-size: medium;
   margin: 0px;
+  word-wrap: break-word;
 }
 
 .MMM-Thingiverse-name {
   font-size: large;
   margin: 0px;
+  word-wrap: break-word;
 }
 
 .MMM-Thingiverse-thumbnail {
-  width: 100%;
   height: 100%;
-  max-width: 200px;
-  max-height: 200px;
   margin: 4px;
+  max-height: 200px;
+  max-width: 200px;
+  width: 100%;
 }
