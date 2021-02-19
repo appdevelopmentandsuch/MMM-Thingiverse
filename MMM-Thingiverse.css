@@ -27,7 +27,7 @@
 }
 
 .MMM-Thingiverse-creator {
-  font-size: medium;
+  font-size: 0.8rem;
   margin: 0px;
   max-width: 200px;
   overflow: hidden;
@@ -37,7 +37,7 @@
 }
 
 .MMM-Thingiverse-name {
-  font-size: large;
+  font-size: 1.1rem;
   margin: 0px;
   max-width: 200px;
   overflow: hidden;

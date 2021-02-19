@@ -97,11 +97,11 @@ Module.register('MMM-Thingiverse', {
     thingCard.classList.add('MMM-Thingiverse-card');
 
     if (thing) {
-      var thingCreator = document.createElement('h4');
+      var thingCreator = document.createElement('div');
       thingCreator.classList.add('MMM-Thingiverse-creator');
       thingCreator.innerHTML = `<i>${thing.creator.name}</i>`;
 
-      var thingName = document.createElement('p');
+      var thingName = document.createElement('div');
       thingName.classList.add('MMM-Thingiverse-name');
       thingName.innerHTML = `<b>${thing.name}</b>`;
 
