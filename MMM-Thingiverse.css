@@ -10,7 +10,7 @@
  */
 
 .MMM-Thingiverse-wrapper {
-  align-items: center;
+  align-items: baseline;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -28,7 +28,7 @@
 
 .MMM-Thingiverse-creator {
   font-size: 0.8rem;
-  line-height: 1em;
+  line-height: 1.1em;
   margin: 0px;
   max-width: 200px;
   overflow: hidden;
@@ -39,7 +39,7 @@
 
 .MMM-Thingiverse-name {
   font-size: 1.1rem;
-  line-height: 1em;
+  line-height: 1.1em;
   margin: 0px;
   max-width: 200px;
   overflow: hidden;
