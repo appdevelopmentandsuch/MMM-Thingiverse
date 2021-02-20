@@ -32,6 +32,7 @@ Module.register('MMM-Thingiverse', {
     this.loaded = false;
     this.maxPages = 10;
     this.newRequestTimeout = 10000;
+    this.overrideUrl = null;
     this.things = { hits: [] };
 
     if (!['popular', 'newest'].includes(self.config.searchBy)) {
@@ -54,7 +55,7 @@ Module.register('MMM-Thingiverse', {
 
     var apiBase = 'https://api.thingiverse.com/';
 
-    var apiConfig = `&access_token=${this.config.appToken}&per_page=${
+    var apiConfig = `access_token=${this.config.appToken}&per_page=${
       this.config.thingCount
     }&page=${self.currentPage % self.maxPages}`;
 
@@ -65,12 +66,16 @@ Module.register('MMM-Thingiverse', {
     var categoryConfig = `categories/${this.config.category}/things`;
     var urlApi =
       apiBase +
-      (this.config.category ? categoryConfig : popularConfig) +
+      (this.config.category ? categoryConfig + '?' : popularConfig + '&') +
       apiConfig;
+
+    var fallbackUrl = apiBase + popularConfig + '&' + apiConfig;
 
     var retry = true;
 
-    console.log(urlApi);
+    if (self.overrideUrl != null && self.overrideUrl !== urlApi) {
+      urlApi = self.overrideUrl;
+    }
 
     var dataRequest = new XMLHttpRequest();
     dataRequest.open('GET', urlApi, true);
@@ -87,12 +92,10 @@ Module.register('MMM-Thingiverse', {
         } else if (this.status === 401) {
           self.updateDom(self.config.animationSpeed);
           Log.error(self.name, this.status);
-          retry = false;
+          self.overrideUrl = fallbackUrl;
+          self.scheduleUpdate(self.loaded ? -1 : self.config.retryDelay);
         } else {
           Log.error(self.name, 'Could not load data.');
-        }
-        if (retry) {
-          self.scheduleUpdate(self.loaded ? -1 : self.config.retryDelay);
         }
       }
     };
