@@ -134,7 +134,7 @@ Module.register('MMM-Thingiverse', {
 
       var thingThumbnail = document.createElement('img');
       thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
-      thingThumbnail.src = thing.thumbnail;
+      thingThumbnail.src = thing.preview_image;
       thingThumbnail.alt = thing.name;
 
       thingCard.appendChild(thingName);
