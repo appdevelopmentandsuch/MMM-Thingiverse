@@ -3,7 +3,8 @@
 This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/).
 
 Display 3D printable objects found on Thingiverse
-
+![Screenshot from 2021-02-20 07-37-07](https://user-images.githubusercontent.com/22528729/108597418-89b64800-734e-11eb-90c5-a78c7f01bd71.png)
+![Screenshot from 2021-02-20 07-37-33](https://user-images.githubusercontent.com/22528729/108597419-8a4ede80-734e-11eb-8643-2063ada05341.png)
 ![Screenshot from 2021-02-15 10-57-38](https://user-images.githubusercontent.com/22528729/107974767-b0563680-6f7c-11eb-869e-d408d0c5bb1a.png)
 ![Screenshot from 2021-02-15 10-57-42](https://user-images.githubusercontent.com/22528729/107974769-b0eecd00-6f7c-11eb-8db4-bffa95b20b5a.png)
 ![Screenshot from 2021-02-15 10-57-50](https://user-images.githubusercontent.com/22528729/107974770-b0eecd00-6f7c-11eb-85ee-861773b4b4e2.png)
