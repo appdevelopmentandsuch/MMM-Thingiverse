@@ -84,9 +84,10 @@ Module.register('MMM-Thingiverse', {
         if (this.status === 200) {
           self.iterations = 0;
           var parsedResponse = JSON.parse(this.response);
-          self.things = self.config.category
-            ? parsedResponse
-            : parsedResponse.hits;
+          self.things =
+            self.config.category && self.overrideUrl === null
+              ? parsedResponse
+              : parsedResponse.hits;
           self.currentThingId = self.config.startAtRandom
             ? Math.floor(Math.random() * self.things.length)
             : 0;
