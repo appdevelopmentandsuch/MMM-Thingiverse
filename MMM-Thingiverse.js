@@ -83,9 +83,12 @@ Module.register('MMM-Thingiverse', {
       if (this.readyState === 4) {
         if (this.status === 200) {
           self.iterations = 0;
-          self.things = JSON.parse(this.response);
+          var parsedResponse = JSON.parse(this.response);
+          self.things = this.config.category
+            ? parsedResponse
+            : parsedResponse.hits;
           self.currentThingId = self.config.startAtRandom
-            ? Math.floor(Math.random() * self.things.hits.length)
+            ? Math.floor(Math.random() * self.things.length)
             : 0;
           self.currentPage = self.currentPage + 1;
           self.processData(self.things);
@@ -149,13 +152,11 @@ Module.register('MMM-Thingiverse', {
 
     if (this.dataRequest) {
       for (var i = 0; i < self.config.numThingsDisplayed; i++) {
-        var thing = this.dataRequest.hits[
-          self.currentThingId % this.dataRequest.hits.length
-        ];
+        var thing = self.things[self.currentThingId % self.things.length];
         if (thing) {
           self.iterations = self.iterations + 1;
 
-          if (self.iterations >= self.things.hits.length) {
+          if (self.iterations >= self.things.length) {
             self.scheduleUpdate(self.newRequestTimeout);
           }
 
