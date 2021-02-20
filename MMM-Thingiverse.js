@@ -70,6 +70,8 @@ Module.register('MMM-Thingiverse', {
 
     var retry = true;
 
+    console.log(urlApi);
+
     var dataRequest = new XMLHttpRequest();
     dataRequest.open('GET', urlApi, true);
     dataRequest.onreadystatechange = function () {
