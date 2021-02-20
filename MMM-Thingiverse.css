@@ -10,39 +10,48 @@
  */
 
 .MMM-Thingiverse-wrapper {
+  align-items: baseline;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.MMM-Thingiverse-card {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-items: center;
-  width: auto;
   height: auto;
+  justify-items: center;
+  margin: 3px;
+  width: auto;
 }
 
 .MMM-Thingiverse-creator {
-  font-size: medium;
+  font-size: 0.8rem;
+  line-height: 1.1em;
   margin: 0px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: break-word;
 }
 
 .MMM-Thingiverse-name {
-  font-size: large;
+  font-size: 1.1rem;
+  line-height: 1.1em;
   margin: 0px;
-}
-
-.MMM-Thingiverse-row {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-items: center;
-}
-
-.MMM-Thingiverse-qrcode {
-  max-width: 15%;
-  max-height: 15%;
-  margin: 4px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: break-word;
 }
 
 .MMM-Thingiverse-thumbnail {
-  max-width: 20%;
-  max-height: 20%;
-  margin: 4px;
+  height: 100%;
+  margin: 1px;
+  max-height: 200px;
+  max-width: 200px;
+  width: 100%;
 }

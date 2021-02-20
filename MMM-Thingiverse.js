@@ -10,11 +10,14 @@
 Module.register('MMM-Thingiverse', {
   defaults: {
     appToken: '',
-    updateInterval: 60000,
     retryDelay: 5000,
-    thingCount: 100,
     startAtRandom: false,
-    displayQRLink: false,
+    thingCount: 100,
+    updateInterval: 60000,
+    numThingsDisplayed: 1,
+    searchBy: 'popular',
+    isFeatured: false,
+    category: '',
   },
 
   requiresVersion: '2.1.0',
@@ -23,16 +26,25 @@ Module.register('MMM-Thingiverse', {
     var self = this;
     var dataRequest = null;
 
-    this.iterations = 0;
-    this.currentThingId = -1;
     this.currentPage = 1;
+    this.currentThingId = -1;
+    this.iterations = 0;
     this.loaded = false;
-    this.things = { hits: [] };
-    this.qrSize = 100;
     this.maxPages = 10;
-    this.maxThingCount = 101;
+    this.newRequestTimeout = 10000;
+    this.overrideUrl = null;
+    this.things = { hits: [] };
+
+    if (!['popular', 'newest'].includes(self.config.searchBy)) {
+      self.config.searchBy = 'popular';
+    }
+
+    if (![1, 3, 5].includes(self.config.numThingsDisplayed)) {
+      self.config.numThingsDisplayed = 3;
+    }
 
     this.getData();
+
     setInterval(function () {
       self.updateDom();
     }, this.config.updateInterval);
@@ -41,12 +53,29 @@ Module.register('MMM-Thingiverse', {
   getData: function () {
     var self = this;
 
-    var urlApi = `https://api.thingiverse.com/search/?sort=popular&access_token=${
-      this.config.appToken
-    }&per_page=${this.config.thingCount}&page=${
-      self.currentPage % self.maxPages
+    var apiBase = 'https://api.thingiverse.com/';
+
+    var apiConfig = `access_token=${this.config.appToken}&per_page=${
+      this.config.thingCount
+    }&page=${self.currentPage % self.maxPages}`;
+
+    var popularConfig = `search/?sort=${this.config.searchBy}&is_featured=${
+      this.config.isFeatured ? 1 : 0
     }`;
+
+    var categoryConfig = `categories/${this.config.category}/things`;
+    var urlApi =
+      apiBase +
+      (this.config.category ? categoryConfig + '?' : popularConfig + '&') +
+      apiConfig;
+
+    var fallbackUrl = apiBase + popularConfig + '&' + apiConfig;
+
     var retry = true;
+
+    if (self.overrideUrl != null && self.overrideUrl !== urlApi) {
+      urlApi = self.overrideUrl;
+    }
 
     var dataRequest = new XMLHttpRequest();
     dataRequest.open('GET', urlApi, true);
@@ -54,21 +83,23 @@ Module.register('MMM-Thingiverse', {
       if (this.readyState === 4) {
         if (this.status === 200) {
           self.iterations = 0;
-          self.things = JSON.parse(this.response);
+          var parsedResponse = JSON.parse(this.response);
+          self.things =
+            self.config.category && self.overrideUrl === null
+              ? parsedResponse
+              : parsedResponse.hits;
           self.currentThingId = self.config.startAtRandom
-            ? Math.floor(Math.random() * self.things.hits.length)
+            ? Math.floor(Math.random() * self.things.length)
             : 0;
           self.currentPage = self.currentPage + 1;
           self.processData(self.things);
         } else if (this.status === 401) {
           self.updateDom(self.config.animationSpeed);
           Log.error(self.name, this.status);
-          retry = false;
+          self.overrideUrl = fallbackUrl;
+          self.scheduleUpdate(self.loaded ? -1 : self.config.retryDelay);
         } else {
           Log.error(self.name, 'Could not load data.');
-        }
-        if (retry) {
-          self.scheduleUpdate(self.loaded ? -1 : self.config.retryDelay);
         }
       }
     };
@@ -88,6 +119,32 @@ Module.register('MMM-Thingiverse', {
     }, nextLoad);
   },
 
+  createThingElement: function (thing) {
+    var thingCard = document.createElement('div');
+    thingCard.classList.add('MMM-Thingiverse-card');
+
+    if (thing) {
+      var thingCreator = document.createElement('div');
+      thingCreator.classList.add('MMM-Thingiverse-creator');
+      thingCreator.innerHTML = `<i>${thing.creator.name}</i>`;
+
+      var thingName = document.createElement('div');
+      thingName.classList.add('MMM-Thingiverse-name');
+      thingName.innerHTML = `<b>${thing.name}</b>`;
+
+      var thingThumbnail = document.createElement('img');
+      thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
+      thingThumbnail.src = thing.preview_image;
+      thingThumbnail.alt = thing.name;
+
+      thingCard.appendChild(thingName);
+      thingCard.appendChild(thingThumbnail);
+      thingCard.appendChild(thingCreator);
+    }
+
+    return thingCard;
+  },
+
   getDom: function () {
     var self = this;
 
@@ -95,49 +152,18 @@ Module.register('MMM-Thingiverse', {
     wrapper.classList.add('MMM-Thingiverse-wrapper');
 
     if (this.dataRequest) {
-      var thing = this.dataRequest.hits[
-        self.currentThingId % this.dataRequest.hits.length
-      ];
-      if (thing) {
-        self.iterations = self.iterations + 1;
-        self.currentThingId = self.currentThingId + 1;
+      for (var i = 0; i < self.config.numThingsDisplayed; i++) {
+        var thing = self.things[self.currentThingId % self.things.length];
+        if (thing) {
+          self.iterations = self.iterations + 1;
 
-        var thingCreator = document.createElement('h4');
-        thingCreator.classList.add('MMM-Thingiverse-creator');
-        thingCreator.innerHTML = `<i>${thing.creator.name}</i>`;
+          if (self.iterations >= self.things.length) {
+            self.scheduleUpdate(self.newRequestTimeout);
+          }
 
-        var row = document.createElement('div');
-        row.classList.add('MMM-Thingiverse-row');
-
-        var thingName = document.createElement('p');
-        thingName.classList.add('MMM-Thingiverse-name');
-        thingName.innerHTML = `<b>${thing.name}</b>`;
-
-        var thingThumbnail = document.createElement('img');
-        thingThumbnail.classList.add('MMM-Thingiverse-thumbnail');
-        thingThumbnail.src = thing.thumbnail;
-
-        row.appendChild(thingThumbnail);
-
-        if (self.config.displayQRLink) {
-          var qrCodeElement = document.createElement('div');
-          qrCodeElement.classList.add('MMM-Thingiverse-qrcode');
-
-          var _ = new QRCode(qrCodeElement, {
-            text: thing.public_url,
-            width: self.qrSize,
-            height: self.qrSize,
-          });
-
-          row.appendChild(qrCodeElement);
+          self.currentThingId = self.currentThingId + 1;
+          wrapper.appendChild(self.createThingElement(thing));
         }
-        if (self.iterations >= self.things.hits.length) {
-          self.getData();
-        }
-
-        wrapper.appendChild(thingName);
-        wrapper.appendChild(row);
-        wrapper.appendChild(thingCreator);
       }
     }
 
@@ -145,7 +171,7 @@ Module.register('MMM-Thingiverse', {
   },
 
   getScripts: function () {
-    return ['qrcode.min.js']; // qrcode.min.js is a library used for QR Code generation. Credit goes to https://github.com/davidshimjs/qrcodejs
+    return [];
   },
 
   getStyles: function () {
