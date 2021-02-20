@@ -17,6 +17,7 @@ Module.register('MMM-Thingiverse', {
     numThingsDisplayed: 1,
     searchBy: 'popular',
     isFeatured: false,
+    category: '',
   },
 
   requiresVersion: '2.1.0',
@@ -51,13 +52,22 @@ Module.register('MMM-Thingiverse', {
   getData: function () {
     var self = this;
 
-    var urlApi = `https://api.thingiverse.com/search/?sort=${
-      this.config.searchBy
-    }&is_featured=${this.config.isFeatured ? 1 : 0}&access_token=${
-      this.config.appToken
-    }&per_page=${this.config.thingCount}&page=${
-      self.currentPage % self.maxPages
+    var apiBase = 'https://api.thingiverse.com/';
+
+    var apiConfig = `&access_token=${this.config.appToken}&per_page=${
+      this.config.thingCount
+    }&page=${self.currentPage % self.maxPages}`;
+
+    var popularConfig = `search/?sort=${this.config.searchBy}&is_featured=${
+      this.config.isFeatured ? 1 : 0
     }`;
+
+    var categoryConfig = `categories/${this.config.category}/things`;
+    var urlApi =
+      apiBase +
+      (this.config.category ? categoryConfig : popularConfig) +
+      apiConfig;
+
     var retry = true;
 
     var dataRequest = new XMLHttpRequest();
