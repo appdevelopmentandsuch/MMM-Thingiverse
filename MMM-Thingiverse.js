@@ -30,7 +30,7 @@ Module.register('MMM-Thingiverse', {
     this.currentThingId = -1;
     this.iterations = 0;
     this.loaded = false;
-    this.maxPages = 10;
+    this.maxPages = 11;
     this.newRequestTimeout = 10000;
     this.overrideUrl = null;
     this.things = { hits: [] };
@@ -55,9 +55,7 @@ Module.register('MMM-Thingiverse', {
 
     var apiBase = 'https://api.thingiverse.com/';
 
-    var apiConfig = `access_token=${this.config.appToken}&per_page=${
-      this.config.thingCount
-    }&page=${self.currentPage % self.maxPages}`;
+    var apiConfig = `access_token=${this.config.appToken}&per_page=${this.config.thingCount}&page=${self.currentPage}`;
 
     var popularConfig = `search/?sort=${this.config.searchBy}&is_featured=${
       this.config.isFeatured ? 1 : 0
@@ -91,7 +89,7 @@ Module.register('MMM-Thingiverse', {
           self.currentThingId = self.config.startAtRandom
             ? Math.floor(Math.random() * self.things.length)
             : 0;
-          self.currentPage = self.currentPage + 1;
+          self.currentPage = (self.currentPage + 1) % self.maxPages;
           self.processData(self.things);
         } else if (this.status === 401) {
           self.updateDom(self.config.animationSpeed);
