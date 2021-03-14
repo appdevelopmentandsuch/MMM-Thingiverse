@@ -93,7 +93,10 @@ Module.register('MMM-Thingiverse', {
             self.currentThingId = self.config.startAtRandom
               ? Math.floor(Math.random() * self.things.length)
               : 0;
-            self.currentPage = (self.currentPage + 1) % self.maxPages;
+            self.currentPage = Math.max(
+              (self.currentPage + 1) % self.maxPages,
+              1,
+            );
             self.processData(self.things);
           }
         } else if (this.status === 401) {
