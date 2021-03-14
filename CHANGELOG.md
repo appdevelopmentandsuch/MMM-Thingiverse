@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.1] - Released
+
+### Bug Fixes
+
+- Fixed issue where the `page` variable would be set to `0` and sent in the API request, resulting in no data.
+- Added validation ensuring that `things` are only set to an array, not data.
+
 ## [1.1.0] - Released
 
 ### Features
