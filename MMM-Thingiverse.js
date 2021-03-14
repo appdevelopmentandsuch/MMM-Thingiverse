@@ -82,15 +82,20 @@ Module.register('MMM-Thingiverse', {
         if (this.status === 200) {
           self.iterations = 0;
           var parsedResponse = JSON.parse(this.response);
-          self.things =
-            self.config.category && self.overrideUrl === null
-              ? parsedResponse
-              : parsedResponse.hits;
-          self.currentThingId = self.config.startAtRandom
-            ? Math.floor(Math.random() * self.things.length)
-            : 0;
-          self.currentPage = (self.currentPage + 1) % self.maxPages;
-          self.processData(self.things);
+          if (
+            (parsedResponse && Array.isArray(parsedResponse)) ||
+            (parsedResponse.hits && Array.isArray(parsedResponse.hits))
+          ) {
+            self.things =
+              self.config.category && self.overrideUrl === null
+                ? parsedResponse
+                : parsedResponse.hits;
+            self.currentThingId = self.config.startAtRandom
+              ? Math.floor(Math.random() * self.things.length)
+              : 0;
+            self.currentPage = (self.currentPage + 1) % self.maxPages;
+            self.processData(self.things);
+          }
         } else if (this.status === 401) {
           self.updateDom(self.config.animationSpeed);
           Log.error(self.name, this.status);
@@ -185,11 +190,13 @@ Module.register('MMM-Thingiverse', {
   processData: function (data) {
     var self = this;
 
-    this.dataRequest = data;
-    if (this.loaded === false) {
-      self.updateDom(self.config.animationSpeed);
+    if (Array.isArray(data)) {
+      this.dataRequest = data;
+      if (this.loaded === false) {
+        self.updateDom(self.config.animationSpeed);
+      }
+      this.loaded = true;
     }
-    this.loaded = true;
   },
 
   socketNotificationReceived: function (notification, payload) {},
