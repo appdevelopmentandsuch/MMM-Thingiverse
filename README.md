@@ -25,6 +25,7 @@ var config = {
   modules: [
     {
       module: 'MMMM-Thingiverse',
+      position: 'bottom_bar',
       config: {
         appToken: '',
       },
