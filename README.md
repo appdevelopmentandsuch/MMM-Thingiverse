@@ -26,7 +26,7 @@ To use this module, add the following configuration block to the modules array i
 var config = {
   modules: [
     {
-      module: 'MMMM-Thingiverse',
+      module: 'MMM-Thingiverse',
       position: 'bottom_bar',
       config: {
         appToken: '',
