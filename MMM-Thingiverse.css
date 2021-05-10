@@ -29,7 +29,6 @@
 .MMM-Thingiverse-creator {
   font-size: 0.8rem;
   line-height: 1.1em;
-  margin: 0px;
   max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -40,7 +39,6 @@
 .MMM-Thingiverse-name {
   font-size: 1.1rem;
   line-height: 1.1em;
-  margin: 0px;
   max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;

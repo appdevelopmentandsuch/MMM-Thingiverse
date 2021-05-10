@@ -1,5 +1,7 @@
 # MMM-Thingiverse
 
+[![CodeFactor](https://www.codefactor.io/repository/github/appdevelopmentandsuch/mmm-thingiverse/badge/main)](https://www.codefactor.io/repository/github/appdevelopmentandsuch/mmm-thingiverse/overview/main)
+
 This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/).
 
 Display 3D printable objects found on Thingiverse
