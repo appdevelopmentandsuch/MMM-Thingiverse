@@ -1,6 +1,14 @@
 # MMM-Thingiverse
 
 [![CodeFactor](https://www.codefactor.io/repository/github/appdevelopmentandsuch/mmm-thingiverse/badge/main)](https://www.codefactor.io/repository/github/appdevelopmentandsuch/mmm-thingiverse/overview/main)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/appdevelopmentandsuch/MMM-Thingiverse/graphs/commit-activity)
+[![GitHub license](https://img.shields.io/github/license/appdevelopmentandsuch/MMM-Thingiverse.svg)](https://github.com/appdevelopmentandsuch/MMM-Thingiverse/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/appdevelopmentandsuch/MMM-Thingiverse.svg)](https://GitHub.com/appdevelopmentandsuch/MMM-Thingiverse/releases/)
+[![GitHub tag](https://img.shields.io/github/tag/appdevelopmentandsuch/MMM-Thingiverse.svg)](https://GitHub.com/appdevelopmentandsuch/MMM-Thingiverse/tags/)
+[![Github all releases](https://img.shields.io/github/downloads/appdevelopmentandsuch/MMM-Thingiverse/total.svg)](https://GitHub.com/appdevelopmentandsuch/MMM-Thingiverse/releases/)
+[![GitHub stars](https://img.shields.io/github/stars/appdevelopmentandsuch/MMM-Thingiverse.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/appdevelopmentandsuch/MMM-Thingiverse/stargazers/)
+[![GitHub issues](https://img.shields.io/github/issues/appdevelopmentandsuch/MMM-Thingiverse.svg)](https://GitHub.com/appdevelopmentandsuch/MMM-Thingiverse/issues/)
+[![GitHub issues-closed](https://img.shields.io/github/issues-closed/appdevelopmentandsuch/MMM-Thingiverse.svg)](https://GitHub.com/appdevelopmentandsuch/MMM-Thingiverse/issues?q=is%3Aissue+is%3Aclosed)
 
 This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/).
 
@@ -26,10 +34,10 @@ To use this module, add the following configuration block to the modules array i
 var config = {
   modules: [
     {
-      module: 'MMM-Thingiverse',
-      position: 'bottom_bar',
+      module: "MMM-Thingiverse",
+      position: "bottom_bar",
       config: {
-        appToken: '',
+        appToken: "",
       },
     },
   ],
